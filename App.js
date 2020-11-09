@@ -14,6 +14,7 @@ import AddressScreen from './src/views/screens/Address';
 import HomeScreen from './src/views/screens/Home';
 import OrderScreen from './src/views/screens/Order';
 import ProfileScreen from './src/views/screens/Profile';
+import FoodDetailScreen from './src/views/screens/FoodDetails';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -112,6 +113,11 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={MainApp}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="FoodDetail"
+          component={FoodDetailScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -9,7 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-
+import NumberFormat from 'react-number-format';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Header from '../../components/Header';
@@ -21,7 +21,7 @@ import {
   recommendedData,
 } from '../../../utils/dummyData';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [newTasteMenuActive, setNewTasteMenuActive] = useState(true);
   const [popularMenuActive, setPopularMenuActive] = useState(false);
   const [recommendedMenuActive, setRecommendedMenuActive] = useState(false);
@@ -45,7 +45,9 @@ const Home = () => {
   };
 
   const MainFoodCard = ({item}) => (
-    <View style={styles.mainFoodCard}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('FoodDetail', {item: item})}
+      style={styles.mainFoodCard}>
       <Image source={{uri: item.uri}} style={styles.mainFoodImage} />
       <View style={styles.mainFoodContent}>
         <Text style={styles.mainFoodTitle}>{item.name}</Text>
@@ -115,15 +117,28 @@ const Home = () => {
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   const NewTestFoodCard = ({item}) => (
-    <View style={styles.subcontentCard}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('FoodDetail', {item: item})}
+      style={styles.subcontentCard}>
       <Image source={{uri: item.uri}} style={styles.subFoodImage} />
       <View style={styles.subFoodContent}>
         <Text style={styles.subFoodTitle}>{item.name}</Text>
-        <Text style={styles.subFoodPrice}>Rp {item.price}</Text>
+        <NumberFormat
+          value={item.price}
+          displayType={'text'}
+          thousandSeparator
+          prefix={'Rp '}
+          decimalScale={2}
+          fixedDecimalScale
+          decimalSeparator={'.'}
+          renderText={(value) => (
+            <Text style={styles.subFoodPrice}>{value}</Text>
+          )}
+        />
       </View>
       <View style={styles.subFoodRating}>
         <View style={styles.subFoodRatingIcon}>
@@ -189,7 +204,7 @@ const Home = () => {
           {Number(item.rating).toFixed(1)}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   const renderMainFoodCard = ({item}) => <MainFoodCard item={item} />;
@@ -295,23 +310,22 @@ const styles = StyleSheet.create({
   },
   mainFoodContainer: {
     flex: 1,
-    marginTop: 24,
+    marginVertical: 24,
   },
   mainFoodCard: {
+    alignSelf: 'center',
     width: 200,
     height: 210,
     backgroundColor: '#FFF',
     borderRadius: 8,
     marginHorizontal: 24,
-    shadowColor: '#000',
-    shadowColor: '#000',
+    shadowColor: '#F2F2F2',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 6,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.3,
     shadowRadius: 1.41,
-
     elevation: 2,
   },
   mainFoodImage: {
