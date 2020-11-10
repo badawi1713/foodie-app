@@ -188,7 +188,9 @@ const FoodDetail = ({navigation, route}) => {
                 )}
               />
             </View>
-            <TouchableOpacity style={styles.orderButton}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SuccessOrder')}
+              style={styles.orderButton}>
               <Text style={styles.orderButtonText}>Order Now</Text>
             </TouchableOpacity>
           </View>

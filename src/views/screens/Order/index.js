@@ -10,8 +10,9 @@ import {
   FlatList,
 } from 'react-native';
 import NumberFormat from 'react-number-format';
-import {mainFoodData, popularData} from '../../../utils/dummyData';
+import {mainFoodData, popularData} from '../../../utils/data/dummyData';
 import Header from '../../components/Header';
+import EmptyOrderSVG from '../../../assets/images/empty-order.svg';
 
 const Order = ({navigation}) => {
   const [newTasteMenuActive, setNewTasteMenuActive] = useState(true);
@@ -91,56 +92,77 @@ const Order = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Your Orders" subtitle="Wait for the best meal" />
-
-      <View style={styles.mainContentContainer}>
-        <View style={styles.mainNavigation}>
-          <View style={styles.mainNavigationItem}>
-            <TouchableOpacity onPress={newTasteMenuHandler}>
-              <Text
-                style={
-                  newTasteMenuActive
-                    ? styles.activeNavigation
-                    : styles.unactiveNavigation
-                }>
-                In Progress
-              </Text>
-            </TouchableOpacity>
-            <View style={newTasteMenuActive && styles.activeNavigationMarker} />
-          </View>
-          <View style={styles.mainNavigationItem}>
-            <TouchableOpacity onPress={popularMenuHandler}>
-              <Text
-                style={
-                  popularMenuActive
-                    ? styles.activeNavigation
-                    : styles.unactiveNavigation
-                }>
-                Post Progress
-              </Text>
-            </TouchableOpacity>
-            <View style={popularMenuActive && styles.activeNavigationMarker} />
-          </View>
+      {mainFoodData.length === 0 && popularData.length === 0 ? (
+        <View style={styles.emptyOrderContainer}>
+          <EmptyOrderSVG style={styles.illustrationImage} />
+          <Text style={styles.mainMessage}>Ouch! Hungry</Text>
+          <Text style={styles.subMessage}>
+            Seems like you have not ordered any food yet
+          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+            style={styles.primaryButton}>
+            <Text style={styles.primaryButtonText}>Find Foods</Text>
+          </TouchableOpacity>
         </View>
+      ) : (
+        <>
+          <Header title="Your Orders" subtitle="Wait for the best meal" />
 
-        <View style={styles.orderItemContainer}>
-          {newTasteMenuActive ? (
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={mainFoodData}
-              renderItem={renderInProgressOrder}
-              keyExtractor={(item) => item.id}
-            />
-          ) : (
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={popularData}
-              renderItem={renderPostProgressOrder}
-              keyExtractor={(item) => item.id}
-            />
-          )}
-        </View>
-      </View>
+          <View style={styles.mainContentContainer}>
+            <View style={styles.mainNavigation}>
+              <View style={styles.mainNavigationItem}>
+                <TouchableOpacity onPress={newTasteMenuHandler}>
+                  <Text
+                    style={
+                      newTasteMenuActive
+                        ? styles.activeNavigation
+                        : styles.unactiveNavigation
+                    }>
+                    In Progress
+                  </Text>
+                </TouchableOpacity>
+                <View
+                  style={newTasteMenuActive && styles.activeNavigationMarker}
+                />
+              </View>
+              <View style={styles.mainNavigationItem}>
+                <TouchableOpacity onPress={popularMenuHandler}>
+                  <Text
+                    style={
+                      popularMenuActive
+                        ? styles.activeNavigation
+                        : styles.unactiveNavigation
+                    }>
+                    Post Progress
+                  </Text>
+                </TouchableOpacity>
+                <View
+                  style={popularMenuActive && styles.activeNavigationMarker}
+                />
+              </View>
+            </View>
+
+            <View style={styles.orderItemContainer}>
+              {newTasteMenuActive ? (
+                <FlatList
+                  showsVerticalScrollIndicator={false}
+                  data={mainFoodData}
+                  renderItem={renderInProgressOrder}
+                  keyExtractor={(item) => item.id}
+                />
+              ) : (
+                <FlatList
+                  showsVerticalScrollIndicator={false}
+                  data={popularData}
+                  renderItem={renderPostProgressOrder}
+                  keyExtractor={(item) => item.id}
+                />
+              )}
+            </View>
+          </View>
+        </>
+      )}
     </SafeAreaView>
   );
 };
@@ -210,7 +232,6 @@ const styles = StyleSheet.create({
   },
   orderItemTitle: {fontSize: 16, fontFamily: 'Poppins', color: '#020202'},
   orderItemPrice: {fontSize: 13, fontFamily: 'Poppins', color: '#8D92A3'},
-
   orderDate: {
     alignSelf: 'flex-end',
 
@@ -226,5 +247,41 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: 'Poppins',
     color: '#46D943',
+  },
+  emptyOrderContainer: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 70,
+  },
+  illustrationImage: {
+    marginBottom: 30,
+  },
+  mainMessage: {
+    fontSize: 20,
+    color: '#020202',
+    fontFamily: 'Poppins',
+    textAlign: 'center',
+  },
+  subMessage: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Light',
+    color: '#8D92A3',
+    marginBottom: 30,
+  },
+  primaryButton: {
+    backgroundColor: '#FFC700',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 36,
+    marginBottom: 12,
+    width: 200,
+    height: 45,
+  },
+  primaryButtonText: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Medium',
+    color: '#020202',
   },
 });

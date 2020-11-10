@@ -19,7 +19,7 @@ import {
   newTasteData,
   popularData,
   recommendedData,
-} from '../../../utils/dummyData';
+} from '../../../utils/data/dummyData';
 
 const Home = ({navigation}) => {
   const [newTasteMenuActive, setNewTasteMenuActive] = useState(true);

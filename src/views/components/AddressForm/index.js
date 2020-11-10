@@ -64,7 +64,7 @@ const AddressForm = ({navigation}) => {
         <View style={styles.formButton}></View>
         <View style={styles.formButton}>
           <Button
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('SuccessSignUp')}
             buttonText="Sign Up Now"
             variant="primary"
           />
