@@ -1,6 +1,11 @@
 # foodie-app
 Foodie app is food marketplace build with react native. I build this app for my practice my react native skill, by slicing UI from this design https://www.figma.com/file/TM5xkhy6BBloW47AerXHxm/FoodMarket
 
+### How to install it?
+- git clone https://github.com/badawi1713/foodie-app/
+- npm i
+- npx react-native run-android (if you wan to use with Android emulator) or just yarn start to connect with your pyshical device.
+
 ### Notes:
 - Learning how to design slicing from Figma into react native codes by myself, and these are the results:
 
