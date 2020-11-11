@@ -15,8 +15,10 @@ import HomeScreen from './src/views/screens/Home';
 import OrderScreen from './src/views/screens/Order';
 import ProfileScreen from './src/views/screens/Profile';
 import FoodDetailScreen from './src/views/screens/FoodDetails';
+import PaymentScreen from './src/views/screens/Payment';
 import SuccessOrderScreen from './src/views/screens/SuccessOrder';
 import SuccessSignUpScreen from './src/views/screens/SuccessSignUp';
+import PaymentMethodScreen from './src/views/screens/PaymentMethod';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -111,7 +113,6 @@ const App = () => {
           component={AddressScreen}
           options={{headerShown: false}}
         />
-
         <Stack.Screen
           name="Home"
           component={MainApp}
@@ -130,6 +131,16 @@ const App = () => {
         <Stack.Screen
           name="SuccessSignUp"
           component={SuccessSignUpScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={PaymentScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PaymentMethod"
+          component={PaymentMethodScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
